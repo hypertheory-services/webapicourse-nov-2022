@@ -59,7 +59,7 @@ Request Messages have:
 - (optional) a body (or entity)
 
 ```http
-GET /tacos
+GET /tacos HTTP/1.1
 Server: tacobell.com
 Accept: application/json
 ```

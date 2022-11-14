@@ -11,7 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <EditorConfigFiles Remove="C:\Users\ITUStudent\dev\webapicourse\ApiBasicsSolution\ApiBasics\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\ITUStudent\dev\webapicourse\ApiBasicsSolution\ApiBasics\.editorconfig" />
   </ItemGroup>
 
 </Project>
