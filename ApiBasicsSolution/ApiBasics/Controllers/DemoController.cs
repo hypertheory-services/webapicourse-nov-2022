@@ -11,15 +11,35 @@ public class DemoController : ControllerBase
     [HttpGet("/employees")]
     public ActionResult GetEmployees([FromQuery] string department = "All")
     {
+        
         return Ok($"{department} employees!");
     }
     // "Documents"
-
+    // /employees/89 - 200 | 404
     [HttpGet("/employees/{id:int}")]
     public ActionResult GetEmployee(int id)
     {
-        return Ok($"Getting employee {id}");
+        if (id % 2 == 0)
+        {
+            var response = new EmployeeDetailsResponse { 
+                Id = id,
+                FirstName = "Bob", 
+                LastName = "Smith", 
+                EmailAddress = "bob@aol.com" };
+            return Ok(response);
+        }
+        else
+        {
+            return NotFound();
+        }
     }
+
+    [HttpPost("/employees")]
+    public ActionResult HireAnEmployee([FromBody] EmployeeCreateRequest request)
+    {
+        return Ok(request);
+    }
+
 
     [HttpGet("/employees/{id:int}/manager")]
     public ActionResult GetEmployeeManager(int id) {
@@ -41,5 +61,6 @@ public class DemoController : ControllerBase
     }
 
     // An entity
+
 }
 
