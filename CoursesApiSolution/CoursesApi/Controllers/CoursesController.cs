@@ -1,4 +1,6 @@
-﻿namespace CoursesApi.Controllers;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace CoursesApi.Controllers;
 
 public class CoursesController : ControllerBase
 {
@@ -13,6 +15,7 @@ public class CoursesController : ControllerBase
     [HttpGet("/courses")]
     public async  Task<ActionResult> GetCoursesAsync()
     {
-        return Ok();
+        var response = await _context.Courses.ToListAsync();
+        return Ok(response);
     }
 }
