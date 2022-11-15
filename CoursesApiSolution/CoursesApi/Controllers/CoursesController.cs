@@ -5,20 +5,20 @@ namespace CoursesApi.Controllers;
 public class CoursesController : ControllerBase
 {
 
-    private readonly CoursesDataContext _context;
+    private readonly CourseCatalog _catalog;
 
-    public CoursesController(CoursesDataContext context)
+    public CoursesController(CourseCatalog catalog)
     {
-        _context = context;
+        _catalog = catalog;
     }
 
     [HttpGet("/courses")]
-    public async  Task<ActionResult> GetCoursesAsync()
+   
+    public async  Task<ActionResult> GetCoursesAsync(CancellationToken token)
     {
-        var response = await _context.Courses.ToListAsync();
-        return Ok(response);
+        CoursesResponseModel response = await _catalog.GetFullCatalogAsync(token);
 
         //var response = new CoursesResponseModel { NumberOfBackendCourses = 99, NumberOfFrontendCourses = 12 };
-        //return Ok(response);
+        return Ok(response);
     }
 }

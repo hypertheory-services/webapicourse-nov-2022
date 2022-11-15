@@ -1,18 +1,28 @@
 using Microsoft.EntityFrameworkCore;
-
+using System.Text.Json.Serialization;
+using CoursesApi;
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+    options.Filters.Add<OperationCancelledExceptionFilterAttribute>()
+    ).AddJsonOptions(options =>
+    {
+
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<CourseCatalog>();
 // Adapters
 builder.Services.AddDbContext<CoursesDataContext>(config =>
 {
-    config.UseNpgsql(builder.Configuration.GetConnectionString("courses-db"));
+    config.UseSqlServer(builder.Configuration.GetConnectionString("courses-db"));
 });
 
 
