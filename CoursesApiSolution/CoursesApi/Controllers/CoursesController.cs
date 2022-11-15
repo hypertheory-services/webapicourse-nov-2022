@@ -17,5 +17,8 @@ public class CoursesController : ControllerBase
     {
         var response = await _context.Courses.ToListAsync();
         return Ok(response);
+
+        //var response = new CoursesResponseModel { NumberOfBackendCourses = 99, NumberOfFrontendCourses = 12 };
+        //return Ok(response);
     }
 }
