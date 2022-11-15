@@ -15,7 +15,7 @@ public class CoursesController : ControllerBase
     [HttpGet("/courses/{id:int}")]
     public async Task<ActionResult<CourseItemDetailsResponse>> GetCourseById(int id, CancellationToken token)
     {
-        CourseItemDetailsResponse response = await _catalog.GetCourseByIdAsync(id, token);
+        CourseItemDetailsResponse? response = await _catalog.GetCourseByIdAsync(id, token);
 
         if (response == null)
         {
