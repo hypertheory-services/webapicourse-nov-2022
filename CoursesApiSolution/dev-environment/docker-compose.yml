@@ -2,9 +2,12 @@ services:
   db:
     image: postgres
     restart: always
-    environment: 
+    environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: TokyoJoe138!
     ports:
       - 5432:5432
-
+    volumes:
+      - db-data:/val/lib/postgresql/data
+volumes:
+  db-data:
