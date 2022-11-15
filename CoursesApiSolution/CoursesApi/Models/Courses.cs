@@ -15,3 +15,11 @@ public record CourseItemResponse
     public string Title { get; set; } = string.Empty;
     public CategoryType Category { get; set; }
 } 
+
+public record CourseItemDetailsResponse
+{
+    public string Id { get; init; } = string.Empty;
+    public string Title { get; init; } = string.Empty;
+    public CategoryType Category { get; init; }
+    public string Description { get; init; } = string.Empty;
+}

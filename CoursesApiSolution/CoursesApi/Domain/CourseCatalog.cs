@@ -28,4 +28,18 @@ public class CourseCatalog
             NumberOfFrontendCourses = courses.Count(c => c.Category == CategoryType.Frontend)
         };
     }
+
+    public async Task<CourseItemDetailsResponse?> GetCourseByIdAsync(int id, CancellationToken token)
+    {
+        var response = await _context.Courses.Where(c => c.Id == id && c.Retired == false)
+            .Select(c => new CourseItemDetailsResponse
+            {
+                Id = c.Id.ToString(),
+                Title = c.Title,
+                Category = c.Category,
+                Description = c.Description
+            }).SingleOrDefaultAsync(token);
+
+        return response;
+    }
 }

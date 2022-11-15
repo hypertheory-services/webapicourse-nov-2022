@@ -12,13 +12,26 @@ public class CoursesController : ControllerBase
         _catalog = catalog;
     }
 
+    [HttpGet("/courses/{id:int}")]
+    public async Task<ActionResult<CourseItemDetailsResponse>> GetCourseById(int id, CancellationToken token)
+    {
+        CourseItemDetailsResponse response = await _catalog.GetCourseByIdAsync(id, token);
+
+        if (response == null)
+        {
+            return NotFound();
+        } else
+        {
+            return Ok(response);
+        }
+    }
+
     [HttpGet("/courses")]
-   
-    public async  Task<ActionResult> GetCoursesAsync(CancellationToken token)
+    public async  Task<ActionResult<CoursesResponseModel>> GetCoursesAsync(CancellationToken token)
     {
         CoursesResponseModel response = await _catalog.GetFullCatalogAsync(token);
 
-        //var response = new CoursesResponseModel { NumberOfBackendCourses = 99, NumberOfFrontendCourses = 12 };
+       
         return Ok(response);
     }
 }
