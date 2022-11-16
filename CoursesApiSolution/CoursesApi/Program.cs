@@ -18,8 +18,11 @@ builder.Services.AddControllers(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<CourseCatalog>();
+//builder.Services.AddTransient<CourseCatalog>();
+builder.Services.AddCoursesServices();
+
 // Adapters
+
 builder.Services.AddDbContext<CoursesDataContext>(config =>
 {
     config.UseSqlServer(builder.Configuration.GetConnectionString("courses-db"));

@@ -6,10 +6,21 @@ public class CoursesController : ControllerBase
 {
 
     private readonly CourseCatalog _catalog;
+    private readonly IProvideOfferings _offerings;
 
-    public CoursesController(CourseCatalog catalog)
+    public CoursesController(CourseCatalog catalog, IProvideOfferings offerings)
     {
         _catalog = catalog;
+        _offerings = offerings;
+    }
+
+    [HttpGet("/courses/{id:int}/offerings")]
+    [ResponseCache(Duration =3600, Location = ResponseCacheLocation.Any)]
+    public async Task<ActionResult> GetOfferingsForCourse(int id)
+    {
+        // TODO talk about a 404 here.
+        var data = await _offerings.GetOfferingsForCourse(id);
+        return Ok(new { Offerings= data });
     }
 
     [HttpGet("/courses/{id:int}")]

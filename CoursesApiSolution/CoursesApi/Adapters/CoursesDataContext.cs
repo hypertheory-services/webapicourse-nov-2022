@@ -9,7 +9,7 @@ public class CoursesDataContext : DbContext
 	{
 
 	}
-    public DbSet<CourseEntity> Courses { get; set; }
+	public DbSet<CourseEntity> Courses { get; set; } = null!;
 
 
 }
