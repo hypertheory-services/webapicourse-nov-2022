@@ -29,6 +29,14 @@ builder.Services.AddDbContext<CoursesDataContext>(config =>
 });
 
 
+// typed httpclients
+builder.Services.AddHttpClient<OfferingsApiAdapter>(httpClient =>
+{
+    httpClient.BaseAddress = new Uri(builder.Configuration.GetValue <string> ("courses-api"));
+    httpClient.DefaultRequestHeaders.Add("User-Agent", "courses-api");
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
