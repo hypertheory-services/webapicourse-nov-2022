@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
 
 namespace CoursesApi.Controllers;
 
@@ -19,6 +20,7 @@ public class CoursesController : ControllerBase
     public async Task<ActionResult> GetOfferingsForCourse(int id)
     {
         // TODO talk about a 404 here.
+        // check to see if that course exists, if it doesn, return a 404.
         var data = await _offerings.GetOfferingsForCourse(id);
         return Ok(new { Offerings= data });
     }
@@ -27,14 +29,14 @@ public class CoursesController : ControllerBase
     public async Task<ActionResult<CourseItemDetailsResponse>> GetCourseById(int id, CancellationToken token)
     {
         CourseItemDetailsResponse? response = await _catalog.GetCourseByIdAsync(id, token);
-
-        if (response == null)
-        {
-            return NotFound();
-        } else
-        {
-            return Ok(response);
-        }
+        return response is CourseItemDetailsResponse data ? Ok(data) : NotFound();
+        //if (response == null)
+        //{
+        //    return NotFound();
+        //} else
+        //{
+        //    return Ok(response);
+        //}
     }
 
     [HttpGet("/courses")]
