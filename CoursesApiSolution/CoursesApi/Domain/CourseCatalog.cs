@@ -69,4 +69,30 @@ public class CourseCatalog
         };
         return response;
     }
+
+    public async Task RemoveCourseAsync(int id)
+    {
+        var course = await _context.Courses.Where(c => id == c.Id && c.Retired == false).SingleOrDefaultAsync();
+
+        if(course != null)
+        {
+            course.Retired = true;
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    public async Task<bool> UpdateDescriptionAsync(int id, string description)
+    {
+        var course = await _context.Courses.SingleOrDefaultAsync(c => c.Id == id && c.Retired == false);
+
+        if(course != null )
+        {
+            course.Description = description;
+            await _context.SaveChangesAsync();
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
 }

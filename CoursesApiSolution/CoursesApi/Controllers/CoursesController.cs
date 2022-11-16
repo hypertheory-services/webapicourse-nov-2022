@@ -18,6 +18,31 @@ public class CoursesController : ControllerBase
     }
 
 
+    [HttpPut("/courses/{id:int}/description")]
+    public async Task<ActionResult> UpdateDescription(int id, [FromBody] string description)
+    {
+        bool didUpdate = await _catalog.UpdateDescriptionAsync(id, description);
+
+        if (didUpdate)
+        {
+            return NoContent();
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
+
+
+    [HttpDelete("/courses/{id:int}")]
+    public async Task<ActionResult> RemoveCourse(int id)
+    {
+        await _catalog.RemoveCourseAsync(id);
+
+        return NoContent();
+    }
+
+
     [HttpPost("/backend-courses")]
     public async Task<ActionResult<CourseItemDetailsResponse>> AddBackendCourse([FromBody] CourseCreateRequest request)
     {
