@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using CoursesApi;
+using WebApiShared.Filters;
+
 var builder = WebApplication.CreateBuilder(args);
 
 

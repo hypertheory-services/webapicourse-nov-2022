@@ -1,5 +1,16 @@
-﻿namespace CoursesApi.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
+namespace CoursesApi.Models;
+
+
+public record CourseCreateRequest
+{
+    [Required, MaxLength(200)]
+    public string Title { get; init; } = string.Empty;
+    [MaxLength(1000)]
+    public string Description { get; init; } = string.Empty;
+
+}
 public record CoursesResponseModel
 {
     public int NumberOfBackendCourses { get; init; }

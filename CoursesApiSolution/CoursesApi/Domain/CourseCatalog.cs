@@ -47,4 +47,26 @@ public class CourseCatalog
        
         return response;
     }
+
+    public async Task<CourseItemDetailsResponse> AddCourseAsync(CourseCreateRequest request, CategoryType category)
+    {
+        var courseToAdd = new CourseEntity
+        {
+            Title = request.Title,
+            Description = request.Description,
+            Retired = false,
+            Category = category
+        };
+        _context.Courses.Add(courseToAdd);
+        await _context.SaveChangesAsync();
+
+        var response = new CourseItemDetailsResponse
+        {
+            Id = courseToAdd.Id.ToString(),
+            Title = courseToAdd.Title,
+            Description = courseToAdd.Description,
+            Category = courseToAdd.Category
+        };
+        return response;
+    }
 }

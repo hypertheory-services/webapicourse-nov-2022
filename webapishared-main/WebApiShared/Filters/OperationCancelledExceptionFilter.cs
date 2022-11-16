@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc;
 
-namespace CoursesApi;
+namespace WebApiShared.Filters;
 
 public class OperationCancelledExceptionFilterAttribute : ExceptionFilterAttribute
 {
@@ -13,7 +14,7 @@ public class OperationCancelledExceptionFilterAttribute : ExceptionFilterAttribu
 
     public override void OnException(ExceptionContext context)
     {
-        if(context.Exception is OperationCanceledException)
+        if (context.Exception is OperationCanceledException)
         {
             _logger.LogInformation("Request was cancelled before completing");
             context.ExceptionHandled = true;
