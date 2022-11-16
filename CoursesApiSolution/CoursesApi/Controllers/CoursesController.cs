@@ -15,6 +15,12 @@ public class CoursesController : ControllerBase
         _offerings = offerings;
     }
 
+    //[HttpGet("/v2/courses/{id:int}")]
+    //public async Task<ActionResult> GetCoursesById2(int id, [FromServices] OfferingsCatalogApiCall service)
+    //{
+    //    return Ok();
+    //}
+
     [HttpGet("/courses/{id:int}/offerings")]
     [ResponseCache(Duration =3600, Location = ResponseCacheLocation.Any)]
     public async Task<ActionResult> GetOfferingsForCourse(int id)
